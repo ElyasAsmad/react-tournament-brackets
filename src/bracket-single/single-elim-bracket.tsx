@@ -1,11 +1,11 @@
 import React from 'react';
 import { ThemeProvider } from 'styled-components';
-import { sortAlphanumerically } from 'Utils/string';
-import { calculateSVGDimensions } from 'Core/calculate-svg-dimensions';
-import { MatchContextProvider } from 'Core/match-context';
-import MatchWrapper from 'Core/match-wrapper';
-import RoundHeader from 'Components/round-header';
-import { getPreviousMatches } from 'Core/match-functions';
+import { sortAlphanumerically } from '../utils/string';
+import { calculateSVGDimensions } from '../core/calculate-svg-dimensions';
+import { MatchContextProvider } from '../core/match-context';
+import MatchWrapper from '../core/match-wrapper';
+import RoundHeader from '../components/round-header';
+import { getPreviousMatches } from '../core/match-functions';
 import { MatchType, SingleElimLeaderboardProps } from '../types';
 import { defaultStyle, getCalculatedStyles } from '../settings';
 import { calculatePositionOfMatch } from './calculate-match-position';
@@ -13,7 +13,7 @@ import { calculatePositionOfMatch } from './calculate-match-position';
 import Connectors from './connectors';
 import defaultTheme from '../themes/themes';
 
-const SingleEliminationBracket = ({
+function SingleEliminationBracket({
   matches,
   matchComponent,
   currentRound,
@@ -24,7 +24,7 @@ const SingleEliminationBracket = ({
   options: { style: inputStyle } = {
     style: defaultStyle,
   },
-}: SingleElimLeaderboardProps) => {
+}: SingleElimLeaderboardProps) {
   const style = {
     ...defaultStyle,
     ...inputStyle,
@@ -178,6 +178,6 @@ const SingleEliminationBracket = ({
       </SvgWrapper>
     </ThemeProvider>
   );
-};
+}
 
 export default SingleEliminationBracket;

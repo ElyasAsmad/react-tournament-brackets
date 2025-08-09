@@ -1,8 +1,8 @@
 import React from 'react';
 import { ThemeProvider } from 'styled-components';
-import { generatePreviousRound } from 'Core/match-functions';
-import { calculateSVGDimensions } from 'Core/calculate-svg-dimensions';
-import { MatchContextProvider } from 'Core/match-context';
+import { generatePreviousRound } from '../core/match-functions';
+import { calculateSVGDimensions } from '../core/calculate-svg-dimensions';
+import { MatchContextProvider } from '../core/match-context';
 
 import { DoubleElimLeaderboardProps, MatchType } from '../types';
 import { defaultStyle, getCalculatedStyles } from '../settings';
@@ -16,13 +16,13 @@ import FinalGame from './final-game';
 import ExtraFinal from './extra-final';
 
 function findTheFinals(matches: { upper: MatchType[]; lower: MatchType[] }): {
-  convergingMatch: MatchType;
-  finalsArray: MatchType[];
+  convergingMatch: MatchType | undefined;
+  finalsArray: (MatchType | undefined)[];
 } {
   const isFinalInUpper = matches.upper.some(match => !match.nextMatchId);
   const isFinalInLower = matches.lower.some(match => !match.nextMatchId);
-  let convergingMatch;
-  let finalsArray;
+  let convergingMatch: MatchType | undefined;
+  let finalsArray: (MatchType | undefined)[] = [];
 
   if (isFinalInLower) {
     const lastUpper = matches.upper.find(match => {
@@ -31,6 +31,7 @@ function findTheFinals(matches: { upper: MatchType[]; lower: MatchType[] }): {
       );
       return !hasNextMatchInUpper;
     });
+
     convergingMatch = matches.lower.find(
       match => match.id === lastUpper.nextMatchId
     );
@@ -57,7 +58,7 @@ function findTheFinals(matches: { upper: MatchType[]; lower: MatchType[] }): {
 
   return { convergingMatch, finalsArray };
 }
-const DoubleEliminationBracket = ({
+function DoubleEliminationBracket({
   matches,
   matchComponent,
   currentRound,
@@ -68,7 +69,7 @@ const DoubleEliminationBracket = ({
   options: { style: inputStyle } = {
     style: defaultStyle,
   },
-}: DoubleElimLeaderboardProps) => {
+}: DoubleElimLeaderboardProps) {
   const style = {
     ...defaultStyle,
     ...inputStyle,
@@ -258,6 +259,6 @@ const DoubleEliminationBracket = ({
       </SvgWrapper>
     </ThemeProvider>
   );
-};
+}
 
 export default DoubleEliminationBracket;

@@ -1,16 +1,16 @@
 import React from 'react';
-import Connectors from 'Components/connector';
+import Connectors from '../components/connector';
 
 import { getCalculatedStyles } from '../settings';
 import { calculatePositionOfMatchLowerBracket } from './calculate-match-position';
 
-const ConnectorsLower = ({
+function ConnectorsLower({
   bracketSnippet,
   rowIndex,
   columnIndex,
   style,
   offsetY = 0,
-}) => {
+}) {
   const { columnWidth, rowHeight, canvasPadding } = getCalculatedStyles(style);
 
   const isUpperSeedingRound = columnIndex % 2 !== 0;
@@ -28,18 +28,18 @@ const ConnectorsLower = ({
   const previousBottomPosition = isUpperSeedingRound
     ? rowIndex
     : (rowIndex + 1) * 2 - 1;
-  const previousTopMatchPosition =
-    !isUpperSeedingRound &&
-    calculatePositionOfMatchLowerBracket(
-      previousBottomPosition - 1,
-      columnIndex - 1,
-      {
-        canvasPadding,
-        rowHeight,
-        columnWidth,
-        offsetY,
-      }
-    );
+  const previousTopMatchPosition = !isUpperSeedingRound
+    ? calculatePositionOfMatchLowerBracket(
+        previousBottomPosition - 1,
+        columnIndex - 1,
+        {
+          canvasPadding,
+          rowHeight,
+          columnWidth,
+          offsetY,
+        }
+      )
+    : null;
   const previousBottomMatchPosition = calculatePositionOfMatchLowerBracket(
     previousBottomPosition,
     columnIndex - 1,
@@ -60,6 +60,6 @@ const ConnectorsLower = ({
       style={style}
     />
   );
-};
+}
 
 export default ConnectorsLower;

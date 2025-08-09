@@ -1,14 +1,25 @@
-import useMatchHighlightContext from 'Hooks/use-match-highlight';
 import React from 'react';
+import useMatchHighlightContext from '../hooks/use-match-highlight';
 import { getCalculatedStyles } from '../settings';
+import { MatchType, OptionsType } from '../types';
 
-const Connector = ({
+function Connector({
   bracketSnippet,
-  previousBottomMatchPosition = null,
-  previousTopMatchPosition = null,
+  previousBottomMatchPosition,
+  previousTopMatchPosition,
   currentMatchPosition,
   style,
-}) => {
+}: {
+  bracketSnippet: {
+    previousTopMatch: MatchType | null;
+    previousBottomMatch: MatchType | null;
+    currentMatch: MatchType | null;
+  } | null;
+  previousBottomMatchPosition?: { x: number; y: number } | null;
+  previousTopMatchPosition?: { x: number; y: number } | null;
+  currentMatchPosition: { x: number; y: number };
+  style: OptionsType;
+}) {
   const {
     boxHeight,
     connectorColor,
@@ -20,7 +31,7 @@ const Connector = ({
     width,
   } = getCalculatedStyles(style);
 
-  const pathInfo = multiplier => {
+  const pathInfo = (multiplier: number) => {
     const middlePointOfMatchComponent = boxHeight / 2;
     const previousMatch =
       multiplier > 0 ? previousBottomMatchPosition : previousTopMatchPosition;
@@ -83,5 +94,11 @@ const Connector = ({
       {bottomHighlighted && <use href={`connector-${x}-${y}-${1}`} />}
     </>
   );
+}
+
+Connector.defaultProps = {
+  previousBottomMatchPosition: null,
+  previousTopMatchPosition: null,
 };
+
 export default Connector;

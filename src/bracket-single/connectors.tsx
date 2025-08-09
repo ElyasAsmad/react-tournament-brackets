@@ -1,16 +1,16 @@
 import React from 'react';
 
-import Connector from 'Components/connector';
+import Connector from '../components/connector';
 import { getCalculatedStyles } from '../settings';
 import { calculatePositionOfMatch } from './calculate-match-position';
 
-const Connectors = ({
+function Connectors({
   bracketSnippet,
   rowIndex,
   columnIndex,
   style,
   offsetY = 0,
-}) => {
+}) {
   const {
     columnWidth,
 
@@ -55,6 +55,6 @@ const Connectors = ({
       style={style}
     />
   );
-};
+}
 
 export default Connectors;

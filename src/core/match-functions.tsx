@@ -1,4 +1,5 @@
-import { sortAlphanumerically } from 'Utils/string';
+import { MatchType, ParticipantType } from '../types';
+import { sortAlphanumerically } from '../utils/string';
 
 export const generatePreviousRound = (matchesColumn, listOfMatches) =>
   matchesColumn.reduce((result, match) => {
@@ -12,17 +13,24 @@ export const generatePreviousRound = (matchesColumn, listOfMatches) =>
 
 export function getPreviousMatches(
   columnIndex: number,
-  columns: any[],
+  columns: MatchType[][],
   previousBottomPosition: number
-) {
+): {
+  previousTopMatch: MatchType | null;
+  previousBottomMatch: MatchType | null;
+} {
   const previousTopMatch =
-    columnIndex !== 0 && columns[columnIndex - 1][previousBottomPosition - 1];
+    columnIndex !== 0
+      ? columns[columnIndex - 1][previousBottomPosition - 1]
+      : null;
   const previousBottomMatch =
-    columnIndex !== 0 && columns[columnIndex - 1][previousBottomPosition];
+    columnIndex !== 0 ? columns[columnIndex - 1][previousBottomPosition] : null;
   return { previousTopMatch, previousBottomMatch };
 }
 
-export function sortTeamsSeedOrder(previousBottomMatch: any): any {
+export function sortTeamsSeedOrder(
+  previousBottomMatch: MatchType | null
+): (a: ParticipantType, b: ParticipantType) => number {
   return (partyA, partyB) => {
     const partyAInBottomMatch = previousBottomMatch?.participants?.find(
       p => p.id === partyA.id

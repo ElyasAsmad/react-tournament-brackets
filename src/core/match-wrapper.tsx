@@ -3,6 +3,34 @@ import { matchContext } from './match-context';
 import { MATCH_STATES } from './match-states';
 import { defaultStyle, getCalculatedStyles } from '../settings';
 import { sortTeamsSeedOrder } from './match-functions';
+import type {
+  MatchComponentProps,
+  MatchType,
+  OptionsType,
+  ParticipantType,
+} from '../types';
+
+interface MatchWrapperProps extends React.SVGProps<SVGSVGElement> {
+  rowIndex: number;
+  columnIndex: number;
+  match: MatchType;
+  previousBottomMatch: MatchType | null;
+  teams: ParticipantType[];
+  topText: string;
+  bottomText: string;
+  style: OptionsType | undefined;
+  matchComponent: React.ComponentType<MatchComponentProps> | undefined | null;
+  onMatchClick:
+    | ((match: {
+        match: MatchType;
+        topWon: boolean;
+        bottomWon: boolean;
+      }) => void)
+    | undefined;
+  onPartyClick:
+    | ((party: ParticipantType, partyWon: boolean) => void)
+    | undefined;
+}
 
 function Match({
   rowIndex,
@@ -18,7 +46,7 @@ function Match({
   onMatchClick,
   onPartyClick,
   ...rest
-}) {
+}: MatchWrapperProps) {
   const {
     state: { hoveredPartyId },
     dispatch,
@@ -27,8 +55,12 @@ function Match({
   const { width = 300, boxHeight = 70, connectorColor } = computedStyles;
   const sortedTeams = teams.sort(sortTeamsSeedOrder(previousBottomMatch));
 
-  const topParty = sortedTeams?.[0] ? sortedTeams[0] : {};
-  const bottomParty = sortedTeams?.[1] ? sortedTeams[1] : {};
+  const topParty: ParticipantType = sortedTeams?.[0]
+    ? sortedTeams[0]
+    : { id: -1 };
+  const bottomParty: ParticipantType = sortedTeams?.[1]
+    ? sortedTeams[1]
+    : { id: -2 };
 
   const topHovered =
     !Number.isNaN(hoveredPartyId) &&
@@ -39,18 +71,20 @@ function Match({
     bottomParty?.id !== undefined &&
     hoveredPartyId === bottomParty.id;
 
-  const participantWalkedOver = participant =>
+  const participantWalkedOver: (participant: ParticipantType) => boolean = (
+    participant: ParticipantType
+  ) =>
     match.state === MATCH_STATES.WALK_OVER &&
     teams.filter(team => !!team.id).length < 2 &&
-    participant.id;
+    !!participant.id;
 
   // Lower placement is better
   const topWon =
-    topParty.status === MATCH_STATES.WALK_OVER ||
+    (topParty.status ?? '') === MATCH_STATES.WALK_OVER ||
     participantWalkedOver(topParty) ||
     topParty.isWinner;
   const bottomWon =
-    bottomParty.status === MATCH_STATES.WALK_OVER ||
+    (bottomParty.status ?? '') === MATCH_STATES.WALK_OVER ||
     participantWalkedOver(bottomParty) ||
     bottomParty.isWinner;
 
@@ -114,6 +148,10 @@ function Match({
         {/* TODO: Add OnClick Match handler */}
         {MatchComponent && (
           <MatchComponent
+            teamNameFallback=""
+            resultFallback={() => {
+              return '';
+            }}
             {...{
               match,
               onMatchClick,

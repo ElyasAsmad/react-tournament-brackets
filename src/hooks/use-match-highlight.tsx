@@ -1,7 +1,16 @@
 import { useContext } from 'react';
-import { matchContext } from 'Core/match-context';
+import { matchContext } from '../core/match-context';
+import { MatchType } from '../types';
 
-const useMatchHighlightContext = ({ bracketSnippet = null }) => {
+const useMatchHighlightContext = ({
+  bracketSnippet = null,
+}: {
+  bracketSnippet: {
+    previousTopMatch: MatchType | null;
+    previousBottomMatch: MatchType | null;
+    currentMatch: MatchType | null;
+  } | null;
+}) => {
   const {
     state: { hoveredPartyId },
   } = useContext(matchContext);

@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { OptionsType } from '../types';
 
-export interface RoundHeaderProps {
+export type RoundHeaderProps = {
   x: number;
   y?: number;
   width: number;
@@ -11,7 +11,7 @@ export interface RoundHeaderProps {
   numOfRounds: number;
   tournamentRoundText: string;
   columnIndex: number;
-}
+};
 
 const Text = styled.text`
   font-family: ${({ theme }) => theme.fontFamily};
@@ -21,7 +21,7 @@ const Rect = styled.rect.attrs(({ theme }) => ({
   fill: theme.roundHeaders.background,
 }))``;
 
-export default function RoundHeader({
+function RoundHeader({
   x,
   y = 0,
   width,
@@ -35,37 +35,43 @@ export default function RoundHeader({
     <g>
       <Rect
         x={x}
-        y={y + canvasPadding}
+        y={(y ?? 0) + canvasPadding}
         width={width}
-        height={roundHeader.height}
-        fill={roundHeader.backgroundColor}
+        height={roundHeader?.height}
+        fill={roundHeader?.backgroundColor}
         rx="3"
         ry="3"
       />
       <Text
         x={x + width / 2}
-        y={y + canvasPadding + roundHeader.height / 2}
+        y={(y ?? 0) + canvasPadding + (roundHeader?.height ?? 0) / 2}
         style={{
-          fontFamily: roundHeader.fontFamily,
-          fontSize: `${roundHeader.fontSize}px`,
-          color: roundHeader.fontColor,
+          fontFamily: roundHeader?.fontFamily,
+          fontSize: `${roundHeader?.fontSize}px`,
+          color: roundHeader?.fontColor,
         }}
         fill="currentColor"
         dominantBaseline="middle"
         textAnchor="middle"
       >
-        {!roundHeader.roundTextGenerator &&
+        {!roundHeader?.roundTextGenerator &&
           columnIndex + 1 === numOfRounds &&
           'Final'}
-        {!roundHeader.roundTextGenerator &&
+        {!roundHeader?.roundTextGenerator &&
           columnIndex + 1 === numOfRounds - 1 &&
           'Semi-final'}
-        {!roundHeader.roundTextGenerator &&
+        {!roundHeader?.roundTextGenerator &&
           columnIndex + 1 < numOfRounds - 1 &&
           `Round ${tournamentRoundText}`}
-        {roundHeader.roundTextGenerator &&
-          roundHeader.roundTextGenerator(columnIndex + 1, numOfRounds)}
+        {roundHeader?.roundTextGenerator &&
+          roundHeader?.roundTextGenerator(columnIndex + 1, numOfRounds)}
       </Text>
     </g>
   );
 }
+
+RoundHeader.defaultProps = {
+  y: 0,
+};
+
+export default RoundHeader;
