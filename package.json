@@ -1,5 +1,5 @@
 {
-  "name": "react-tournament-brackets",
+  "name": "@elyasasmad/react-tournament-brackets",
   "version": "1.0.35",
   "description": "A react component to visualize bracket leaderboards",
   "module": "dist/esm/index.js",
