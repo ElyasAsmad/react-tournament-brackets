@@ -84,10 +84,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Shenato/react-tournament-brackets.git"
+    "url": "git+https://github.com/ElyasAsmad/react-tournament-brackets.git"
   },
   "bugs": {
-    "url": "https://github.com/Shenato/react-tournament-brackets/issues"
+    "url": "https://github.com/ElyasAsmad/react-tournament-brackets/issues"
   },
-  "homepage": "https://github.com/Shenato/react-tournament-brackets#readme"
+  "homepage": "https://github.com/ElyasAsmad/react-tournament-brackets#readme"
 }
