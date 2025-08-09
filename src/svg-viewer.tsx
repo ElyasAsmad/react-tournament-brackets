@@ -1,26 +1,31 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { INITIAL_VALUE, ReactSVGPanZoom, TOOL_AUTO } from 'react-svg-pan-zoom';
-import { precisionRound } from 'Utils/numbers';
+import { ReactSVGPanZoom, TOOL_AUTO } from 'react-svg-pan-zoom';
+import type { Value, Tool } from 'react-svg-pan-zoom';
+import { precisionRound } from './utils/numbers';
 
-const SvgViewer = ({
+function EmptyToolbar() {
+  return null;
+}
+
+function SvgViewer({
   height = 500,
   width = 500,
   bracketWidth,
   bracketHeight,
   children,
-  startAt = [0, 0],
+  startAt = [0, 0] as [number, number],
   scaleFactor = 1.1,
   customToolbar = null,
   ...rest
-}) => {
-  const Viewer = useRef(null);
-  const [tool, setTool] = useState(TOOL_AUTO);
-  const [value, setValue] = useState(INITIAL_VALUE);
+}) {
+  const Viewer = useRef<ReactSVGPanZoom>(null);
+  const [tool, setTool] = useState<Tool>(TOOL_AUTO);
+  const [value, setValue] = useState<Value | null>(null);
   const [scaleFactorMin, setScaleFactorMin] = useState(1);
   const scaleFactorMax = 1.25;
 
   useEffect(() => {
-    Viewer.current.pan(...startAt);
+    Viewer.current?.pan(...startAt);
   }, []);
 
   const lockToBoundaries = v => {
@@ -55,13 +60,17 @@ const SvgViewer = ({
       value={value}
       onChangeValue={setValue}
       onZoom={lockToBoundaries}
-      onPan={lockToBoundaries}
-      miniatureProps={{ position: 'right' }}
-      customToolbar={customToolbar ?? (() => <></>)}
+      customToolbar={customToolbar ?? EmptyToolbar}
+      miniatureProps={{
+        position: 'right',
+        background: '#fff',
+        width: 100,
+        height: 100,
+      }}
       {...rest}
     >
       {children}
     </ReactSVGPanZoom>
   );
-};
+}
 export default SvgViewer;
