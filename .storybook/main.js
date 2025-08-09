@@ -13,22 +13,8 @@ module.exports = {
   typescript: {
     reactDocgen: false,
   },
-  addons: [
-    '@storybook/addon-links',
-    '@storybook/addon-essentials',
-    {
-      name: '@storybook/addon-storysource',
-      options: {
-        rule: {
-          // test: [/\.stories\.jsx?$/], This is default
-          include: [SRC_DIR], // You can specify directories
-        },
-        loaderOptions: {
-          prettierConfig: { printWidth: 80, singleQuote: false },
-        },
-      },
-    },
-  ],
+
+  addons: ['@storybook/addon-links', '@storybook/addon-docs'],
 
   webpackFinal: async (config, { configType }) => {
     // `configType` has a value of 'DEVELOPMENT' or 'PRODUCTION'
@@ -83,9 +69,5 @@ module.exports = {
   framework: {
     name: '@storybook/react-webpack5',
     options: {},
-  },
-
-  docs: {
-    autodocs: true,
-  },
+  }
 };

@@ -1,5 +1,5 @@
 import React from 'react';
-// also exported from '@storybook/react' if you can deal with breaking changes in 6.1
+// also exported from '@storybook/react-webpack5' if you can deal with breaking changes in 6.1
 
 import useWindowSize from 'Hooks/use-window-size';
 import styled from 'styled-components';
