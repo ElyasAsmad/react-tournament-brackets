@@ -6,12 +6,11 @@
 *** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 -->
+
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
-
-
 
 <!-- PROJECT LOGO -->
 <br />
@@ -19,6 +18,8 @@
   <!-- <a href="https://github.com/Shenato/react-tournament-brackets">
     <img src="images/logo.png" alt="Logo" width="80" height="80">
   </a> -->
+
+> ⚠️ This repository is a fork of the [original project](https://github.com/Shenato/react-tournament-brackets), focusing primarily on supporting the latest libraries (like React 19), bug fixes and small updates. Our objective is to enhance the stability and reliability of the codebase while implementing minor improvements to refine the user experience.
 
   <h3 align="center">React Tournament Brackets</h3>
 
@@ -37,8 +38,6 @@
     <a href="https://github.com/Shenato/react-tournament-brackets/issues">Request Feature</a>
   </p>
 </p>
-
-
 
 <!-- TABLE OF CONTENTS -->
 <details open="open">
@@ -59,59 +58,69 @@
         <li><a href="#theming-and-styling">Theming and styling</a></li>
       </ul>
     </li>
-     <li>
-          <li><a href="#contributing">Contributing</a></li>
-      <ul>
-        <li><a href="#contributer-testing-guide">Contributer Testing Guide</a></li>
-      </ul>
-    </li>
-
+    <li><a href="#contributing">Contributing</a></li>
+    <li><a href="#contributer-testing-guide">Contributor Testing Guide<a></li>
     <li><a href="#acknowledgements">Acknowledgements</a></li>
+
   </ol>
 </details>
 
-
-
 <!-- ABOUT THE PROJECT -->
+
 ## About The Project
+
 - Screenshot Of single elimination bracket out of the box
-[![Single elimination screenshot][single-bracket-screenshot]][single-demo-url]
+  [![Single elimination screenshot][single-bracket-screenshot]][single-demo-url]
 - Screenshot Of double elimination bracket out of the box
-[![Double elimination screenshot][double-bracket-screenshot]][double-demo-url]
+  [![Double elimination screenshot][double-bracket-screenshot]][double-demo-url]
 
 I was scouring the world wide web for a good component library for visualizing single elimination brackets or double elimination brackets but most of them had complicated data structures or didn't allow for easy styling, and so I had to build my own, and decided to share it with the world.
+
 ### Built With
 
 You only need to have react installed in your project to use this project.
-* [React](https://reactjs.org/)
-* [Styled Components](https://styled-components.com/)
 
+- [React](https://reactjs.org/)
+- [Styled Components](https://styled-components.com/)
 
-**Note:** default browser css is reset using the [minireset.css package](https://github.com/jgthms/minireset.css/) in the storybook demos. To fully control what the match component looks like you can build and supply your own view component for it 
+**Note:** default browser css is reset using the [minireset.css package](https://github.com/jgthms/minireset.css/) in the storybook demos. To fully control what the match component looks like you can build and supply your own view component for it
+
 ## Getting Started
+
 ### Installation
-  This project is hosted on the public npm registry, here's the [link to the npm page](https://www.npmjs.com/package/react-tournament-brackets)
-  ```sh
-  npm install @Shenato/react-tournament-brackets
-  ```
+
+This project is hosted on the public npm registry, here's the [link to the npm page](https://www.npmjs.com/package/react-tournament-brackets)
+
+```sh
+npm install @ElyasAsmad/react-tournament-brackets
+```
 
 <!-- USAGE EXAMPLES -->
+
 ## Basic Usage
 
 ### Basics of the library
-`import { SingleEliminationBracket, DoubleEliminationBracket, Match, MATCH_STATES, SVGViewer } from '@Shenato/react-tournament-brackets';`
-| Component     | Description   |
+
+`import { SingleEliminationBracket, DoubleEliminationBracket, Match, MATCH_STATES, SVGViewer } from '@ElyasAsmad/react-tournament-brackets';`
+| Component | Description |
 | ------------- |:-------------|
 | SingleEliminationBracket | Component for displaying single elimination bracket |
 | DoubleEliminationBracket | Component for displaying double elimination bracket |
-| Match                    | Default component for rendering matches that can be overridden |
-| MATCH_STATES             | Constant containing enum for Match states and Participants statuses |
-| SVGViewer                | Optional component for displaying the bracket in a fixed size window with panning and zooming functionality |
+| Match | Default component for rendering matches that can be overridden |
+| MATCH_STATES | Constant containing enum for Match states and Participants statuses |
+| SVGViewer | Optional component for displaying the bracket in a fixed size window with panning and zooming functionality |
 
 ### Using the components
+
 This component generates an SVG of all your bracket matches, you can use the supplied optional component `<SVGViewer />` like in the following example to wrap the SVG in a fixed size window with panning and zooming functionality, Note that you're also free to come up with your own solution for allowing the user to navigate giant brackets with ease.
+
 ```js
-import { SingleEliminationBracket, DoubleEliminationBracket, Match, SVGViewer } from '@Shenato/react-tournament-brackets';
+import {
+  SingleEliminationBracket,
+  DoubleEliminationBracket,
+  Match,
+  SVGViewer,
+} from '@ElyasAsmad/react-tournament-brackets';
 export const DoubleElimination = () => (
   <DoubleEliminationBracket
     matches={matches}
@@ -137,8 +146,13 @@ export const SingleElimination = () => (
 ```
 
 - If you want the `SVGViewer` to fit it's container you will need some sort of hook to achieve that, like [useWindowSize()](https://usehooks.com/useWindowSize/), [useComponentSize](https://github.com/rehooks/component-size) or your own custom solution
+
 ```js
-import { DoubleEliminationBracket, Match, SVGViewer } from '@Shenato/react-tournament-brackets';
+import {
+  DoubleEliminationBracket,
+  Match,
+  SVGViewer,
+} from '@ElyasAsmad/react-tournament-brackets';
 
 export const DoubleElimination = () => {
   const [width, height] = useWindowSize();
@@ -157,10 +171,13 @@ export const DoubleElimination = () => {
   );
 };
 ```
+
 _For more examples, please refer to the [Storybook][demo-url]_
 
 ### Data structures
+
 - Single Eliminations `matches` prop structure
+
 ```json
 [
   ...,
@@ -192,7 +209,9 @@ _For more examples, please refer to the [Storybook][demo-url]_
 ]
 
 ```
+
 - Double Eliminations `matches` prop structure
+
 ```json
 {
   "upper": [
@@ -254,7 +273,9 @@ _For more examples, please refer to the [Storybook][demo-url]_
   ]
 }
 ```
-- Double Eliminations `matches` prop structure with double finals, Keep the same structure and add a nextMatchId + nextLooserMatchId pointing to a new match in the same bracket (the finals can be in upper or in lower bracket) _For more examples of valid double finals data, check out the [mock data folder](https://github.com/Shenato/react-tournament-brackets/tree/master/src/mock-data) specifically  [data-double-last-game-lower.ts](https://github.com/Shenato/react-tournament-brackets/tree/master/src/mock-data/data-double-last-game-lower.ts) and [data-double-last-game-upper-double-playoffs.ts](https://github.com/Shenato/react-tournament-brackets/tree/master/src/mock-data/data-double-last-game-upper-double-playoffs.ts) _
+
+- Double Eliminations `matches` prop structure with double finals, Keep the same structure and add a nextMatchId + nextLooserMatchId pointing to a new match in the same bracket (the finals can be in upper or in lower bracket) _For more examples of valid double finals data, check out the [mock data folder](https://github.com/ElyasAsmad/react-tournament-brackets/tree/master/src/mock-data) specifically [data-double-last-game-lower.ts](https://github.com/ElyasAsmad/react-tournament-brackets/tree/master/src/mock-data/data-double-last-game-lower.ts) and [data-double-last-game-upper-double-playoffs.ts](https://github.com/ElyasAsmad/react-tournament-brackets/tree/master/src/mock-data/data-double-last-game-upper-double-playoffs.ts) _
+
 ```json
 {
   [upper|lower]: [
@@ -293,9 +314,11 @@ _For more examples, please refer to the [Storybook][demo-url]_
 
 
 ```
+
 - Match / Participant States are defined in the exported constant `MATCH_STATES`
+
 ```js
-import { MATCH_STATES } from '@Shenato/react-tournament-brackets';
+import { MATCH_STATES } from '@ElyasAsmad/react-tournament-brackets';
 console.log(MATCH_STATES);
 // {
 //   PLAYED: 'PLAYED',
@@ -305,19 +328,26 @@ console.log(MATCH_STATES);
 //   DONE: 'DONE',
 //   SCORE_DONE: 'SCORE_DONE',
 // };
-
 ```
 
-_For more examples of accepted data, check out the [mock data folder](https://github.com/Shenato/react-tournament-brackets/tree/master/src/mock-data)_
-
+_For more examples of accepted data, check out the [mock data folder](https://github.com/ElyasAsmad/react-tournament-brackets/tree/master/src/mock-data)_
 
 ## Theming and Styling
+
 This component's default theme is the dark theme in the screenshot, you can use the function `createTheme` which is exported from the library to create a theme and then pass it to either single or double bracket on the `theme` prop
-A few notes: 
+A few notes:
+
 - Some colors like the roundHeaders, and connectors aren't tied to the theme yet, you'll need to style those through the `options` prop manually for now, In the very near future they will be tied to the theme as well!
+
 #### Full Example of custom theming:
+
 ```js
-import { SingleEliminationBracket, Match, SVGViewer, createTheme } from '@Shenato/react-tournament-brackets';
+import {
+  SingleEliminationBracket,
+  Match,
+  SVGViewer,
+  createTheme,
+} from '@ElyasAsmad/react-tournament-brackets';
 
 const WhiteTheme = createTheme({
   textColor: { main: '#000000', highlighted: '#07090D', dark: '#3E414D' },
@@ -371,11 +401,16 @@ export const WhiteThemeBracket = () => {
   );
 };
 ```
+
 ### If themes aren't enough for you you can always supply your own Match view component and use the props passed to it to override the match view rendering, Again you'll need to style the round headers and connector lines using `options` prop
 
 #### Basic example of custom match component
+
 ```js
-import { SingleEliminationBracket, SVGViewer } from '@Shenato/react-tournament-brackets';
+import {
+  SingleEliminationBracket,
+  SVGViewer,
+} from '@ElyasAsmad/react-tournament-brackets';
 
 export const CustomMatchBracket = () => {
   const [width, height] = useWindowSize();
@@ -455,19 +490,16 @@ export const CustomMatchBracket = () => {
 };
 ```
 
-
 _For more examples, checkout the [live storybook][demo-url]_
 
-
-
 <!-- LICENSE -->
+
 ## License
 
 Distributed under the GNU LGPL v2.1 License. See `LICENSE` for more information.
 
-
-
 <!-- CONTRIBUTING -->
+
 ## Contributing
 
 Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
@@ -480,37 +512,40 @@ Contributions are what make the open source community such an amazing place to b
 6. Push to the Branch (`git push origin feature/AmazingFeature`)
 7. Open a Pull Request
 
-
 ## Contributer Testing Guide
 
 ### Unit tests and linting
+
 - Run: `npm run test`
 - Run: `npm run lint`
+
 ### Checking that storybook works
+
 - Run: `npm run build-storybook` to check that it builds the storybook demo website correctly
+
 ### Checking that the package works when consumed by a test project
-- Run: `npm run test-lib-build` for testing that the package builds and packs into an npm package correctly 
+
+- Run: `npm run test-lib-build` for testing that the package builds and packs into an npm package correctly
 - Follow the guide for both [nextjs](./demos/nextjs/README.md) and [create-react-app](./demos/create-react-app/README.md) project examples
 
 <!-- ACKNOWLEDGEMENTS -->
+
 ## Acknowledgements
-* Inspiration for allowing user to theme the bracket utlizing styled-components wthout exposing the library from [React Data Table Component](https://github.com/jbetancur/react-data-table-component/)
-* Library used for the optional component SVGViewer for zooming and panning the bracket [React SVG Pan Zoom](https://github.com/chrvadala/react-svg-pan-zoom)
 
-
-
-
+- Inspiration for allowing user to theme the bracket utlizing styled-components wthout exposing the library from [React Data Table Component](https://github.com/jbetancur/react-data-table-component/)
+- Library used for the optional component SVGViewer for zooming and panning the bracket [React SVG Pan Zoom](https://github.com/chrvadala/react-svg-pan-zoom)
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/Shenato/react-tournament-brackets.svg?style=for-the-badge
-[contributors-url]: https://github.com/Shenato/react-tournament-brackets/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/Shenato/react-tournament-brackets.svg?style=for-the-badge
-[forks-url]: https://github.com/Shenato/react-tournament-brackets/network/members
-[stars-shield]: https://img.shields.io/github/stars/Shenato/react-tournament-brackets.svg?style=for-the-badge
-[stars-url]: https://github.com/Shenato/react-tournament-brackets/stargazers
-[issues-shield]: https://img.shields.io/github/issues/Shenato/react-tournament-brackets.svg?style=for-the-badge
-[issues-url]: https://github.com/Shenato/react-tournament-brackets/issues
+
+[contributors-shield]: https://img.shields.io/github/contributors/ElyasAsmad/react-tournament-brackets.svg?style=for-the-badge
+[contributors-url]: https://github.com/ElyasAsmad/react-tournament-brackets/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/ElyasAsmad/react-tournament-brackets.svg?style=for-the-badge
+[forks-url]: https://github.com/ElyasAsmad/react-tournament-brackets/network/members
+[stars-shield]: https://img.shields.io/github/stars/ElyasAsmad/react-tournament-brackets.svg?style=for-the-badge
+[stars-url]: https://github.com/ElyasAsmad/react-tournament-brackets/stargazers
+[issues-shield]: https://img.shields.io/github/issues/ElyasAsmad/react-tournament-brackets.svg?style=for-the-badge
+[issues-url]: https://github.com/ElyasAsmad/react-tournament-brackets/issues
 [single-bracket-screenshot]: images/screenshot_single.png
 [double-bracket-screenshot]: images/screenshot_double.png
 [single-demo-url]: https://elaborate-stroopwafel-5c9655.netlify.app/?path=/story/components-bracket--bracket
